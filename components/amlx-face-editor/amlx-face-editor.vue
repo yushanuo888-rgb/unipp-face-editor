@@ -12,10 +12,10 @@
 </template>
 
 <script>
-	import faceList from '@/utils/face.js'
-	import * as tools from '@/utils/tools.js'
+	import faceList from '../../static/js/face.js'
+	import * as tools from '../../static/js/tools.js'
 	export default {
-		name:"face-textarea",
+		name:"amlx-face-textarea",
 		props: {
 			defaultValue: {
 				type: String,
@@ -132,6 +132,7 @@
 			  })
 			},
 			setContents(inner) {
+				this.$emit('onContent', !!inner)
 				this.editorCtx.setContents({
 				  html: `<p>${inner}</p>`
 				})

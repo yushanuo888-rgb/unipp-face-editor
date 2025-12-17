@@ -1,4 +1,4 @@
-import faceList from '@/utils/face.js'
+import faceList from './face.js'
 const emojiMap = faceList.emojiList.reduce((map, item) => {
   map[item.key] = item.url
   return map

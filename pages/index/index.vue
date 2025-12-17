@@ -2,35 +2,37 @@
 	<view>
 		<view slot="default" class="default">
 			<!-- 表情输入框 -->
-			<AmlxFaceTextarea ref="faceTextarea"></AmlxFaceTextarea>
+			<AmlxFaceEditor ref="faceTextarea" @onContent="hasContent = $event"></AmlxFaceEditor>
 			<!-- 表情面板 -->
-			<AmlxFacePanel @handleFace="handleFace" @delLastText="delLastText"></AmlxFacePanel>
+			<AmlxFacePanel :delActive="hasContent" @handleFace="handleFace" @delLastText="delLastText"></AmlxFacePanel>
 			<!-- 发送按钮 -->
 			<button @click="send">发送</button>
 			<!-- 渲染表情内容 -->
 			<view class="face-content">
-				<rich-text :nodes="renderEmoji(text)"></rich-text>
+				<AmlxFaceRender :data="text"></AmlxFaceRender>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import AmlxFaceTextarea from '@/components/amlx-face-textarea.vue';
-	import AmlxFacePanel from '@/components/amlx-face-panel.vue';
-	import { renderEmoji } from '@/utils/tools.js'
+	import AmlxFaceEditor from '@/components/amlx-face-editor/amlx-face-editor.vue';
+	import AmlxFacePanel from '@/components/amlx-face-editor/amlx-face-panel.vue';
+	import AmlxFaceRender from '@/components/amlx-face-editor/amlx-face-render.vue';
+	
 	export default {
 		components: {
-			AmlxFaceTextarea,
-			AmlxFacePanel
+			AmlxFaceEditor,
+			AmlxFacePanel,
+			AmlxFaceRender
 		},
 		data() {
 			return {
+				hasContent: false, // 输入框是否有内容
 				text: ''
 			};
 		},
 		methods: {
-			renderEmoji,
 			handleFace(e) {
 				this.$refs.faceTextarea.insertFace(e)
 			},

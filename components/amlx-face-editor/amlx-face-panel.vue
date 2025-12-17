@@ -2,10 +2,7 @@
 	<view class="face-box">
 		<view class="tab">
 			<view class="tab-item active">
-				<image src="/static/image/face.png" mode="aspectFill"></image>
-			</view>
-			<view class="tab-item">
-				<image src="/static/image/love.png" mode="aspectFill"></image>
+				<image src="/static/emoji/face.png" mode="aspectFill"></image>
 			</view>
 		</view>
 		<view class="face-scroll">
@@ -30,8 +27,8 @@
 		</view>
 		<view class="del">
 			<button @click="delLastText">
-				<image v-if="delActive" src="/static/image/face-del.png" mode="aspectFit"></image>
-				<image v-else src="/static/image/face-del2.png" mode="aspectFit"></image>
+				<image v-if="delActive" src="/static/emoji/face-del.png" mode="aspectFit"></image>
+				<image v-else src="/static/emoji/face-del2.png" mode="aspectFit"></image>
 			</button>
 		</view>
 	</view>
@@ -61,9 +58,9 @@
 	}
 	
 	
-	import faceList from '@/utils/face.js'
+	import faceList from '../../static/js/face.js'
 	export default {
-		name:"face-panel",
+		name:"amlx-face-panel",
 		props: {
 			delActive: {
 				type: Boolean,
@@ -139,7 +136,7 @@
 		.tab{
 			@include flex-center;
 			justify-content: flex-start;
-			align-items: flex-start;
+			align-items: center;
 			overflow-x: auto;
 			width: 100%;
 			height: 90rpx;
