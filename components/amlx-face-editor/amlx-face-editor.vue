@@ -173,6 +173,9 @@
 			::v-deep .imgClass{
 				vertical-align: middle;
 			}
+			::v-deep .ql-editor.ql-blank::before{
+				font-style: normal;
+			}
 		}
 	}
 </style>
