@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 表情输入框 -->
-		<AmlxFaceEditor ref="faceTextarea" placeholder="输入内容" @onContent="hasContent = $event"></AmlxFaceEditor>
+		<AmlxFaceEditor ref="faceTextarea" placeholder="输入内容" @hasContent="hasContent = $event"></AmlxFaceEditor>
 		<!-- 表情面板 -->
 		<AmlxFacePanel :delActive="hasContent" @handleFace="handleFace" @delLastText="delLastText"></AmlxFacePanel>
 		<!-- 发送按钮 -->
@@ -14,9 +14,9 @@
 </template>
 
 <script>
-	import AmlxFaceEditor from '/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-editor.vue';
-	import AmlxFacePanel from '/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-panel.vue';
-	import AmlxFaceRender from '/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-render.vue';
+	import AmlxFaceEditor from '@/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-editor.vue';
+	import AmlxFacePanel from '@/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-panel.vue';
+	import AmlxFaceRender from '@/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-render.vue';
 	
 	export default {
 		components: {

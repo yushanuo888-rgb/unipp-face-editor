@@ -2,7 +2,7 @@
 	<view class="face-box">
 		<view class="tab">
 			<view class="tab-item active">
-				<image src="/uni_modules/amlx-face-editor/static/emoji/face.png" mode="aspectFill"></image>
+				<image src="../../static/emoji/face.png" mode="aspectFill"></image>
 			</view>
 		</view>
 		<view class="face-scroll">
@@ -27,8 +27,8 @@
 		</view>
 		<view class="del">
 			<button @click="delLastText">
-				<image v-if="delActive" src="/uni_modules/amlx-face-editor/static/emoji/face-del.png" mode="aspectFit"></image>
-				<image v-else src="/uni_modules/amlx-face-editor/static/emoji/face-del2.png" mode="aspectFit"></image>
+				<image v-if="delActive" src="../../static/emoji/face-del.png" mode="aspectFit"></image>
+				<image v-else src="../../static/emoji/face-del2.png" mode="aspectFit"></image>
 			</button>
 		</view>
 	</view>
@@ -58,7 +58,7 @@
 	}
 	
 	
-	import faceList from '/uni_modules/amlx-face-editor/static/js/face.js'
+	import faceList from '../../static/js/face.js'
 	export default {
 		name:"amlx-face-panel",
 		props: {

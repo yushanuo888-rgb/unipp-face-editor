@@ -3,7 +3,7 @@
 </template>
 
 <script>
-	import { renderEmoji } from '/uni_modules/amlx-face-editor/static/js/tools.js'
+	import { renderEmoji } from '../../static/js/tools.js'
 	export default {
 		name:"amlx-face-render",
 		props: {
