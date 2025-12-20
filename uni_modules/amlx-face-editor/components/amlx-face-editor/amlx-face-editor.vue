@@ -35,6 +35,7 @@
 			onEditorReady() {
 				// #ifdef MP-BAIDU
 				this.editorCtx = requireDynamicLib('editorLib').createEditorContext('editor');
+				this.defaultValue && this.insertText(this.defaultValue)
 				this.editorCtx.insertText({
 					text: this.defaultValue
 				})
@@ -43,9 +44,7 @@
 				// #ifdef APP-PLUS || MP-WEIXIN || H5
 				uni.createSelectorQuery().select('#editor').context((res) => {
 					this.editorCtx = res.context
-					this.editorCtx.insertText({
-						text: this.defaultValue
-					})
+					this.defaultValue && this.insertText(this.defaultValue)
 				}).exec()
 				// #endif
 			},
@@ -58,7 +57,13 @@
 				this.editorCtx.clear({
 					success: function(res) {
 						callback && callback()
+						this.$emit('hasContent', false)
 					}
+				})
+			},
+			insertText(text) {
+				this.editorCtx.insertText({
+					text
 				})
 			},
 			insertImage(image, desc, callback) {
@@ -104,6 +109,7 @@
 			      // 🚨 兜底：空态或仅 <br>，直接清空并 return
 			      if (!inner || inner === '<br>') {
 			        this.editorCtx.setContents({ html: '' })
+					this.$emit('hasContent', false)
 			        return
 			      }
 			
