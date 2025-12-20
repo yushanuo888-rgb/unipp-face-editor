@@ -1,24 +1,22 @@
 <template>
 	<view>
-		<view slot="default" class="default">
-			<!-- 表情输入框 -->
-			<AmlxFaceEditor ref="faceTextarea" placeholder="输入内容" @onContent="hasContent = $event"></AmlxFaceEditor>
-			<!-- 表情面板 -->
-			<AmlxFacePanel :delActive="hasContent" @handleFace="handleFace" @delLastText="delLastText"></AmlxFacePanel>
-			<!-- 发送按钮 -->
-			<button @click="send">发送</button>
-			<!-- 渲染表情内容 -->
-			<view class="face-content">
-				<AmlxFaceRender :data="text"></AmlxFaceRender>
-			</view>
+		<!-- 表情输入框 -->
+		<AmlxFaceEditor ref="faceTextarea" placeholder="输入内容" @onContent="hasContent = $event"></AmlxFaceEditor>
+		<!-- 表情面板 -->
+		<AmlxFacePanel :delActive="hasContent" @handleFace="handleFace" @delLastText="delLastText"></AmlxFacePanel>
+		<!-- 发送按钮 -->
+		<button @click="send">发送</button>
+		<!-- 渲染表情内容 -->
+		<view class="face-content">
+			<AmlxFaceRender :data="text"></AmlxFaceRender>
 		</view>
 	</view>
 </template>
 
 <script>
-	import AmlxFaceEditor from '@/components/amlx-face-editor/amlx-face-editor.vue';
-	import AmlxFacePanel from '@/components/amlx-face-editor/amlx-face-panel.vue';
-	import AmlxFaceRender from '@/components/amlx-face-editor/amlx-face-render.vue';
+	import AmlxFaceEditor from '/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-editor.vue';
+	import AmlxFacePanel from '/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-panel.vue';
+	import AmlxFaceRender from '/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-render.vue';
 	
 	export default {
 		components: {
