@@ -55,7 +55,7 @@
 			},
 			clearEditor(callback) {
 				this.editorCtx.clear({
-					success: function(res) {
+					success: () => {
 						callback && callback()
 						this.$emit('hasContent', false)
 					}

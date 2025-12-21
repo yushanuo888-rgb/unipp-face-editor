@@ -1,3 +1,5 @@
+## 1.0.9（2025-12-21）
+- 修复通过ref调用amlx-face-editor组件内部clearEditor方法时，this指向丢失问题导致hasContent事件未更新
 ## 1.0.8（2025-12-20）
 - 解决插入表情hasContent事件更新延迟
 - 修复首次加载defaultValue自动弹出软键盘
