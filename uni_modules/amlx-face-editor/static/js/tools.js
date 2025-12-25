@@ -47,7 +47,7 @@ export function deltaToText(delta, emojiList) {
       const imageUrl = insert.image;
 
       // 只取 /static/emoji/emoji_xx.png
-      const match = imageUrl.match(/\/static\/emoji\/emoji_\d+\.png$/);
+      const match = imageUrl.match(/\/uni_modules\/amlx-face-editor\/static\/emoji\/emoji_\d+\.png$/);
 
       if (match && emojiMap[match[0]]) {
         result += emojiMap[match[0]];

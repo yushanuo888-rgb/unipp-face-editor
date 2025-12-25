@@ -218,20 +218,21 @@ if (uni.restoreGlobal) {
       onEditorReady() {
         uni.createSelectorQuery().select("#editor").context((res) => {
           this.editorCtx = res.context;
-          if (this.defaultValue) {
-            this.insertText(this.defaultValue);
-          }
+          this.defaultValue && this.insertText(this.defaultValue);
         }).exec();
       },
       onEditorInput(e) {
         this.$emit("onInput", e.detail);
-        let ops = e.detail.delta.ops;
-        this.$emit("onContent", !(ops.length === 1 && ops[0].insert === "\n"));
+        let ops = e.detail.delta && e.detail.delta.ops;
+        if (!ops)
+          return;
+        this.$emit("hasContent", !(ops.length === 1 && ops[0].insert === "\n"));
       },
       clearEditor(callback) {
         this.editorCtx.clear({
-          success: function(res) {
+          success: () => {
             callback && callback();
+            this.$emit("hasContent", false);
           }
         });
       },
@@ -250,7 +251,7 @@ if (uni.restoreGlobal) {
             height: 20,
             extClass: "imgClass",
             success: () => {
-              formatAppLog("log", "at components/amlx-face-editor/amlx-face-editor.vue:79", "insert image success");
+              formatAppLog("log", "at uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-editor.vue:80", "insert image success");
               callback && callback();
               if (this.timerId)
                 clearTimeout(this.timerId);
@@ -264,6 +265,7 @@ if (uni.restoreGlobal) {
         });
       },
       insertFace(faceName) {
+        this.$emit("hasContent", true);
         let faceItem = faceList.emojiList.find((item) => item.key === faceName);
         this.insertImage(faceItem.url);
       },
@@ -279,6 +281,7 @@ if (uni.restoreGlobal) {
             let inner = match[1];
             if (!inner || inner === "<br>") {
               this.editorCtx.setContents({ html: "" });
+              this.$emit("hasContent", false);
               return;
             }
             if (/<img[^>]*>$/.test(inner)) {
@@ -290,7 +293,7 @@ if (uni.restoreGlobal) {
             }
             if (!inner || inner === "<br>") {
               this.editorCtx.setContents({ html: "" });
-              this.$emit("onContent", false);
+              this.$emit("hasContent", false);
               return;
             }
             this.editorCtx.setContents({
@@ -300,7 +303,7 @@ if (uni.restoreGlobal) {
         });
       },
       setContents(inner) {
-        this.$emit("onContent", !!inner);
+        this.$emit("hasContent", !!inner);
         this.editorCtx.setContents({
           html: `<p>${inner}</p>`
         });
@@ -318,9 +321,6 @@ if (uni.restoreGlobal) {
             }
           });
         });
-      },
-      focus() {
-        this.setContents("");
       }
     }
   };
@@ -336,10 +336,10 @@ if (uni.restoreGlobal) {
       }, null, 40, ["placeholder", "read-only"])
     ]);
   }
-  const AmlxFaceEditor = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__scopeId", "data-v-1b677ff7"], ["__file", "C:/files/uniapp/amlx-face-editor/components/amlx-face-editor/amlx-face-editor.vue"]]);
-  const _imports_0 = "/static/emoji/face.png";
-  const _imports_1 = "/static/emoji/face-del.png";
-  const _imports_2 = "/static/emoji/face-del2.png";
+  const AmlxFaceEditor = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__scopeId", "data-v-a979930e"], ["__file", "C:/files/uniapp/amlx-face-editor/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-editor.vue"]]);
+  const _imports_0 = "/uni_modules/amlx-face-editor/static/emoji/face.png";
+  const _imports_1 = "/uni_modules/amlx-face-editor/static/emoji/face-del.png";
+  const _imports_2 = "/uni_modules/amlx-face-editor/static/emoji/face-del2.png";
   const RECENTLY = "recently";
   function setRecently(data) {
     let list = getRecently();
@@ -465,7 +465,7 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const AmlxFacePanel = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__scopeId", "data-v-d1e43a7b"], ["__file", "C:/files/uniapp/amlx-face-editor/components/amlx-face-editor/amlx-face-panel.vue"]]);
+  const AmlxFacePanel = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__scopeId", "data-v-b0ebf446"], ["__file", "C:/files/uniapp/amlx-face-editor/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-panel.vue"]]);
   const _sfc_main$2 = {
     name: "amlx-face-render",
     props: {
@@ -483,7 +483,7 @@ if (uni.restoreGlobal) {
       nodes: $options.renderEmoji($props.data)
     }, null, 8, ["nodes"]);
   }
-  const AmlxFaceRender = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__file", "C:/files/uniapp/amlx-face-editor/components/amlx-face-editor/amlx-face-render.vue"]]);
+  const AmlxFaceRender = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__file", "C:/files/uniapp/amlx-face-editor/uni_modules/amlx-face-editor/components/amlx-face-editor/amlx-face-render.vue"]]);
   const _sfc_main$1 = {
     components: {
       AmlxFaceEditor,
@@ -519,32 +519,27 @@ if (uni.restoreGlobal) {
     const _component_AmlxFacePanel = vue.resolveComponent("AmlxFacePanel");
     const _component_AmlxFaceRender = vue.resolveComponent("AmlxFaceRender");
     return vue.openBlock(), vue.createElementBlock("view", null, [
-      vue.createElementVNode("view", {
-        slot: "default",
-        class: "default"
-      }, [
-        vue.createVNode(
-          _component_AmlxFaceEditor,
-          {
-            ref: "faceTextarea",
-            placeholder: "输入内容",
-            onOnContent: _cache[0] || (_cache[0] = ($event) => $data.hasContent = $event)
-          },
-          null,
-          512
-          /* NEED_PATCH */
-        ),
-        vue.createVNode(_component_AmlxFacePanel, {
-          delActive: $data.hasContent,
-          onHandleFace: $options.handleFace,
-          onDelLastText: $options.delLastText
-        }, null, 8, ["delActive", "onHandleFace", "onDelLastText"]),
-        vue.createElementVNode("button", {
-          onClick: _cache[1] || (_cache[1] = (...args) => $options.send && $options.send(...args))
-        }, "发送"),
-        vue.createElementVNode("view", { class: "face-content" }, [
-          vue.createVNode(_component_AmlxFaceRender, { data: $data.text }, null, 8, ["data"])
-        ])
+      vue.createVNode(
+        _component_AmlxFaceEditor,
+        {
+          ref: "faceTextarea",
+          placeholder: "输入内容",
+          onHasContent: _cache[0] || (_cache[0] = ($event) => $data.hasContent = $event)
+        },
+        null,
+        512
+        /* NEED_PATCH */
+      ),
+      vue.createVNode(_component_AmlxFacePanel, {
+        delActive: $data.hasContent,
+        onHandleFace: $options.handleFace,
+        onDelLastText: $options.delLastText
+      }, null, 8, ["delActive", "onHandleFace", "onDelLastText"]),
+      vue.createElementVNode("button", {
+        onClick: _cache[1] || (_cache[1] = (...args) => $options.send && $options.send(...args))
+      }, "发送"),
+      vue.createElementVNode("view", { class: "face-content" }, [
+        vue.createVNode(_component_AmlxFaceRender, { data: $data.text }, null, 8, ["data"])
       ])
     ]);
   }

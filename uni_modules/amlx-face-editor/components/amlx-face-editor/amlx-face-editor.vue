@@ -50,7 +50,8 @@
 			},
 			onEditorInput(e) {
 				this.$emit('onInput', e.detail)
-				let ops = e.detail.delta.ops
+				let ops = e.detail.delta && e.detail.delta.ops
+				if(!ops) return
 				this.$emit('hasContent', !(ops.length === 1 && ops[0].insert === '\n'))
 			},
 			clearEditor(callback) {

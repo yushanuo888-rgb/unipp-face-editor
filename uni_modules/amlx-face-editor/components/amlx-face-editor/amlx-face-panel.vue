@@ -1,6 +1,6 @@
 <template>
 	<view class="face-box">
-		<view class="tab">
+		<view class="tab" v-if="optionsPanel">
 			<view class="tab-item active">
 				<image src="../../static/emoji/face.png" mode="aspectFill"></image>
 			</view>
@@ -62,9 +62,13 @@
 	export default {
 		name:"amlx-face-panel",
 		props: {
-			delActive: {
+			delActive: { // 删除按钮是否激活
 				type: Boolean,
 				default: false
+			},
+			optionsPanel: { // 选择面板是否显示
+				type: Boolean,
+				default: true
 			}
 		},
 		data() {
