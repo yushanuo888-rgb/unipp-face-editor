@@ -63,9 +63,7 @@
 							添加的单个表情
 						</view>
 						<view class="animated-emoji">
-							<view class="animated-emoji-item add" @click="openAnimatedEmoji">
-								<image src="../../static/imgs/add.png" mode="aspectFit"></image>
-							</view>
+							<view class="animated-emoji-item add" @click="openAnimatedEmoji"></view>
 							<view class="animated-emoji-item" v-for="item in animateList" :key="item.id" @click="handleAnimate(item)">
 								<image :src="item.url" mode="aspectFill"></image>
 							</view>
@@ -288,11 +286,8 @@
 					}
 					
 					&.add {
-						border: 1px dashed #333;
-						image{
-							width: 66rpx;
-							height: 66rpx;
-						}
+						background: url("../../static/imgs/add.png") no-repeat center;
+						background-size: 100% 100%;
 					}
 				}
 			}
