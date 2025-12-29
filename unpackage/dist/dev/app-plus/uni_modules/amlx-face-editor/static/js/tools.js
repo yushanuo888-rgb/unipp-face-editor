@@ -47,7 +47,7 @@ export function deltaToText(delta, emojiList) {
       const imageUrl = insert.image;
 
       // 只取 /static/emoji/emoji_xx.png
-      const match = imageUrl.match(/\/static\/emoji\/emoji_\d+\.png$/);
+      const match = imageUrl.match(/\/uni_modules\/amlx-face-editor\/static\/emoji\/emoji_\d+\.png$/);
 
       if (match && emojiMap[match[0]]) {
         result += emojiMap[match[0]];
@@ -59,4 +59,19 @@ export function deltaToText(delta, emojiList) {
   });
 
   return result;
+}
+
+const system = uni.getSystemInfoSync();
+
+/**
+ * 获取系统信息
+ */
+export function getSystemInfo() {
+	return {
+		// 系统信息
+		statusBarHeight: system.statusBarHeight, // 状态栏高度
+		screenHeight: system.screenHeight, // 屏幕高度
+		screenWidth: system.screenWidth, // 屏幕宽度
+		safeBottom: system.safeAreaInsets.bottom, // 底部安全区域高度
+	}
 }

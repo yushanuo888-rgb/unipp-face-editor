@@ -120,7 +120,11 @@
 
 | 参数名 | 类型 | 默认值 | 必填 | 说明 |
 |--------|------|--------|------|------|
+| optionsPanel | Boolean | false | 否 | 是否显示操作栏 |
 | delActive | Boolean | false | 否 | 删除按钮是否激活（影响删除按钮的样式状态） |
+| optionsPanel | Boolean | false | 否 | 是否显示操作栏 |
+| animateList | Boolean | false | 否 | 收藏表情列表（格式：[{id: 1, url: '/example/a.png'}]） |
+| collectionShow | Boolean | false | 否 | 收藏表情是否显示 |
 
 #### Events 事件
 
@@ -128,6 +132,8 @@
 |--------|------|------|
 | handleFace | faceName: String | 选择表情事件，返回表情的 key 值 |
 | delLastText | - | 点击删除按钮事件 |
+| addAnimated | - | 点击收藏表情添加按钮 |
+| handleAnimate | {id: any, url: string} | 点击具体的收藏表情按钮 |
 
 ### amlx-face-render 组件
 表情渲染组件，表情输入组件（amlx-face-editor）的文本内容转换为可显示的表情。

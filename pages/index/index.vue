@@ -1,14 +1,23 @@
 <template>
 	<view>
-		<!-- 表情输入框 -->
-		<AmlxFaceEditor ref="faceTextarea" placeholder="输入内容" @hasContent="hasContent = $event"></AmlxFaceEditor>
-		<!-- 表情面板 -->
-		<AmlxFacePanel :delActive="hasContent" @handleFace="handleFace" @delLastText="delLastText"></AmlxFacePanel>
-		<!-- 发送按钮 -->
-		<button @click="send">发送</button>
 		<!-- 渲染表情内容 -->
 		<view class="face-content">
 			<AmlxFaceRender :data="text"></AmlxFaceRender>
+		</view>
+		<view class="mg">
+			<view class="input">
+				<!-- 表情输入框 -->
+				<AmlxFaceEditor ref="faceTextarea" placeholder="请输入内容" @hasContent="hasContent = $event"></AmlxFaceEditor>
+			</view>
+			<!-- 表情面板 -->
+			<AmlxFacePanel 
+				:animateList="animateList"
+				:delActive="hasContent" 
+				@handleFace="handleFace" 
+				@delLastText="delLastText"
+			></AmlxFacePanel>
+			<!-- 发送按钮 -->
+			<button class="btn" hover-class="btn-hover" @click="send">发送</button>
 		</view>
 	</view>
 </template>
@@ -27,7 +36,14 @@
 		data() {
 			return {
 				hasContent: false, // 输入框是否有内容
-				text: ''
+				text: '', // 输入框初始内容
+				
+				animateList: [
+					{
+						id: 1,
+						url: '/static/images/avatar.jpg'
+					}
+				]
 			};
 		},
 		methods: {
@@ -52,7 +68,7 @@
 <style lang="scss" scoped>
 	.face-content{
 		padding: 10rpx;
-		margin: 30rpx 20rpx;
+		margin: 10rpx;
 		height: 300rpx;
 		background: #efefef;
 		border-radius: 4px;
@@ -60,5 +76,22 @@
 		// 渲染空白符 \n \b \r
 		white-space: pre-wrap;
 		word-break: break-all;
+	}
+	.mg{
+		padding: 10rpx;
+		.input{
+			padding: 10rpx;
+			background: #efefef;
+			border-radius: 4px;
+			margin-bottom: 20rpx;
+		}
+		.btn{
+			margin-top: 20rpx;
+			color: #fff;
+			background-color: #4cd964;
+		}
+		.btn-hover{
+			background-color: #42bf57;
+		}
 	}
 </style>

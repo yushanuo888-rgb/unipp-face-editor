@@ -60,3 +60,4 @@ export function deltaToText(delta, emojiList) {
 
   return result;
 }
+
